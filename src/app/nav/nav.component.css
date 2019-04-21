@@ -1,0 +1,11 @@
+.mat-nav-list .mat-list-item:focus, .mat-nav-list .mat-list-item:hover{
+  background-color: #3F51B5 !important;
+  color: white !important;
+}
+
+.active-list-item {
+  /*background-color: ;*/
+  color: white;
+  background-color: #3F51B5 !important;
+}
+

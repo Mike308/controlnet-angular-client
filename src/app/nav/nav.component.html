@@ -1,0 +1,9 @@
+<div fxLayoutAlign="left">
+  <mat-list>
+    <mat-nav-list *ngFor="let module of modules" role="navigation">
+      <a [routerLink]="['../dashboard/', module.id]" mat-list-item
+         routerLinkActive="active-list-item">{{module.name}}</a>
+    </mat-nav-list>
+  </mat-list>
+</div>
+
