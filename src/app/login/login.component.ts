@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginStatusSubscription: Subscription;
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -28,12 +29,23 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    if (this.loginStatusSubscription){
+      this.loginStatusSubscription.unsubscribe();
+    }
   }
 
   onLogin() {
     this.authService.loginUser(this.loginForm.value.userName, this.loginForm.value.password);
     console.log('Login: ' + this.loginForm.value.userName);
     console.log('Password:' + this.loginForm.value.password);
+    this.loginStatusSubscription = this.authService.loginStatus.subscribe(
+      (loginStatus) => {
+        if (loginStatus.ifLoggedIn) {
+          this.router.navigate(['/index']);
+        } else {
+          console.log('Wrong password');
+        }
+      }
+    );
   }
 }
