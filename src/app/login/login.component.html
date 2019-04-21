@@ -1,15 +1,17 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="height: 300px">
-  <mat-card>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <div fxLayout="column">
-      <mat-form-field>
-        <input matInput placeholder="User" formControlName="userName">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Password" type="password" formControlName="password">
-      </mat-form-field>
-      <button color="primary" mat-raised-button>Sign in</button>
-    </div>
-  </form>
-  </mat-card>
+<div fxLayoutAlign="center center">
+<div fxLayout="column" style="height: 300px; margin-left: 750%; margin-top: 100%">
+    <mat-card>
+      <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+        <div fxLayout="column">
+          <mat-form-field>
+            <input formControlName="userName" matInput placeholder="User">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="password" matInput placeholder="Password" type="password">
+          </mat-form-field>
+          <button color="primary" mat-raised-button>Sign in</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
 </div>
