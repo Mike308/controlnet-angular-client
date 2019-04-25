@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatChipsModule, MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +17,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AuthGuard} from './guard/auth.guard';
 import {DashboardService} from './dashboard/service/dashboard.service';
 import {GaugesModule} from 'ng-canvas-gauges';
+import {GaugeModule} from 'angular-gauge';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import {GaugesModule} from 'ng-canvas-gauges';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    GaugesModule
+    GaugesModule,
+    GaugeModule.forRoot(),
+    MatChipsModule
   ],
   providers: [AuthService, NavService, AuthGuard, DashboardService],
   bootstrap: [AppComponent]
