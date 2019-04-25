@@ -1,6 +1,6 @@
 <!--suppress ALL -->
 <div fxLayout="row" fxLayoutGap="20px">
-  <mat-card width="600px" *ngIf="hubSensor.temperatures.length > 0">
+  <mat-card *ngIf="hubSensor.temperatures.length > 0" width="600px">
     <mat-card-title>Temperatures</mat-card-title>
     <div fxLayout="row" fxLayoutGap="20px">
       <div *ngFor="let temperature of hubSensor.temperatures">
@@ -40,25 +40,26 @@
   <mat-card *ngIf="hubSensor.humidityMeasurements.length > 0">
     <mat-card-title>Humidity</mat-card-title>
     <div *ngFor="let humidityMeasurement of hubSensor.humidityMeasurements" fxLayout="row">
-      <mwl-gauge animated="true"
-                 animationDuration="1"
-                 dialendangle="-90.001"
-                 dialstartangle="-90"
-                 max="100"
-                 value="{{humidityMeasurement.humidity}}">
-      </mwl-gauge>
+      <ngx-gauge
+        foregroundColor="#33BBFF"
+        label="%"
+        type="full"
+        value="{{humidityMeasurement.humidity}}"
+      >
+      </ngx-gauge>
     </div>
   </mat-card>
   <mat-card *ngIf="hubSensor.lightIntensityMeasurements.length > 0">
     <mat-card-title>Light Intensity</mat-card-title>
     <div *ngFor="let lightIntensity of hubSensor.lightIntensityMeasurements">
-      <mwl-gauge animated="true"
-                 animationDuration="1"
-                 dialendangle="-90.001"
-                 dialstartangle="-90"
-                 max="{{lightIntensity.lightIntensity + 500}}"
-                 value="{{lightIntensity.lightIntensity}}">
-      </mwl-gauge>
+      <ngx-gauge
+        foregroundColor="#F3E800"
+        label="lx"
+        thick="20"
+        min="0"
+        max="{{lightIntensity.lightIntensity+10}}"
+        type="arch"
+        value="{{lightIntensity.lightIntensity}}"></ngx-gauge>
     </div>
   </mat-card>
 </div>
