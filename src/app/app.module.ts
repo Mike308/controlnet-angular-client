@@ -17,7 +17,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AuthGuard} from './guard/auth.guard';
 import {DashboardService} from './dashboard/service/dashboard.service';
 import {GaugesModule} from 'ng-canvas-gauges';
-import {GaugeModule} from 'angular-gauge';
+import {NgxGaugeModule} from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,8 @@ import {GaugeModule} from 'angular-gauge';
     HttpClientModule,
     AppRoutingModule,
     GaugesModule,
-    GaugeModule.forRoot(),
-    MatChipsModule
+    MatChipsModule,
+    NgxGaugeModule
   ],
   providers: [AuthService, NavService, AuthGuard, DashboardService],
   bootstrap: [AppComponent]
