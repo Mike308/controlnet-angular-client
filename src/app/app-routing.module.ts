@@ -4,12 +4,14 @@ import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './guard/auth.guard';
 import {IndexComponent} from './index/index.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {ChartComponent} from './chart/chart.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'index', component: IndexComponent, canActivate: [AuthGuard]},
-  {path: 'dashboard/:moduleId', component: DashboardComponent, canActivate: [AuthGuard]}
+  {path: 'dashboard/:moduleId', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'chart/:moduleId', component: ChartComponent, canActivate: [AuthGuard]}
 ];
 
 

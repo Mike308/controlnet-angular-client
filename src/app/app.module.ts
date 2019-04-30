@@ -2,7 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {MatButtonModule, MatCardModule, MatChipsModule, MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule
+} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
@@ -18,6 +26,9 @@ import {AuthGuard} from './guard/auth.guard';
 import {DashboardService} from './dashboard/service/dashboard.service';
 import {GaugesModule} from 'ng-canvas-gauges';
 import {NgxGaugeModule} from 'ngx-gauge';
+import { ChartComponent } from './chart/chart.component';
+import {ChartService} from './chart/service/chart.service';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -25,7 +36,8 @@ import {NgxGaugeModule} from 'ngx-gauge';
     LoginComponent,
     IndexComponent,
     NavComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +54,11 @@ import {NgxGaugeModule} from 'ngx-gauge';
     AppRoutingModule,
     GaugesModule,
     MatChipsModule,
-    NgxGaugeModule
+    NgxGaugeModule,
+    MatDialogModule,
+    ChartsModule
   ],
-  providers: [AuthService, NavService, AuthGuard, DashboardService],
+  providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
