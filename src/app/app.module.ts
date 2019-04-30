@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import {
   MatButtonModule,
   MatCardModule,
-  MatChipsModule,
+  MatChipsModule, MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatListModule
+  MatListModule, MatNativeDateModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import {NgxGaugeModule} from 'ngx-gauge';
 import { ChartComponent } from './chart/chart.component';
 import {ChartService} from './chart/service/chart.service';
 import {ChartsModule} from 'ng2-charts';
+import { PopupDateDialogComponent } from './popup-date-dialog/popup-date-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +38,10 @@ import {ChartsModule} from 'ng2-charts';
     IndexComponent,
     NavComponent,
     DashboardComponent,
-    ChartComponent
+    ChartComponent,
+    PopupDateDialogComponent
   ],
+  entryComponents: [DashboardComponent, PopupDateDialogComponent],
   imports: [
     BrowserModule,
     MatButtonModule,
@@ -56,7 +59,9 @@ import {ChartsModule} from 'ng2-charts';
     MatChipsModule,
     NgxGaugeModule,
     MatDialogModule,
-    ChartsModule
+    ChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService],
   bootstrap: [AppComponent]
