@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDatepickerInputEvent, MatDialogRef} from '@angular/material';
 import {ChartPopupDialogDataModel} from '../shared/model/chart.popup.dialog.data.model';
+import {DatePipe} from '@angular/common';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-popup-date-dialog',
@@ -11,26 +13,35 @@ export class PopupDateDialogComponent implements OnInit {
 
   startDate: string;
   endDate: string;
+  startTime: string;
+  endTime: string;
+  startDateControl = new FormControl(' ', Validators.required);
+  endDateControl = new FormControl(' ', Validators.required);
+
 
   constructor(public dialogRef: MatDialogRef<PopupDateDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ChartPopupDialogDataModel) {
+              @Inject(MAT_DIALOG_DATA) public data: ChartPopupDialogDataModel, private datePipe: DatePipe) {
   }
 
   ngOnInit() {
 
   }
 
-  onAccept() {
-    console.log('Start date: ' + this.startDate);
-    console.log('End date: ' + this.endDate);
-    console.log(JSON.stringify(this.data));
-  }
 
   onStartDateChange(event: MatDatepickerInputEvent<Date>) {
-    this.startDate = event.value.toString();
+    this.data.startDate = this.datePipe.transform(event.value.toString(), 'yyyy-MM-dd');
   }
 
   onEndDateChange(event: MatDatepickerInputEvent<Date>) {
-    this.endDate = event.value.toString();
+    this.data.endDate = this.datePipe.transform(event.value.toString(), 'yyyy-MM-dd');
+  }
+
+  onEndTimeChange(value: any) {
+    this.data.endTime = value;
+
+  }
+
+  onStartTimeChange(value: any) {
+    this.data.startTime = value;
   }
 }

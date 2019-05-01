@@ -1,17 +1,28 @@
 <div mat-dialog-content>
-  <mat-form-field>
-    <input (dateChange)="onStartDateChange($event)" [matDatepicker]="startDatePicker" matInput placeholder="Start date">
-    <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
-    <mat-datepicker #startDatePicker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <input (dateChange)="onEndDateChange($event)" [matDatepicker]="endDatePicker" matInput placeholder="End date">
-    <mat-datepicker-toggle [for]="endDatePicker" matSuffix></mat-datepicker-toggle>
-    <mat-datepicker #endDatePicker></mat-datepicker>
-  </mat-form-field>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <mat-form-field>
+      <input (dateChange)="onStartDateChange($event)" [matDatepicker]="startDatePicker" matInput
+             placeholder="Start date" [formControl]="startDateControl">
+      <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Start time" type="time" (input)="onStartTimeChange($event.target.value)" [disabled]="!startDateControl.valid">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <mat-form-field>
+      <input (dateChange)="onEndDateChange($event)" [matDatepicker]="endDatePicker" matInput placeholder="End date" [formControl]="endDateControl">
+      <mat-datepicker-toggle [for]="endDatePicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="End time" type="time" (input)="onEndTimeChange($event.target.value)" [disabled]="!endDateControl.valid">
+    </mat-form-field>
+  </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="onAccept()">OK</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" ckdFocusInitial>OK</button>
 </div>
 
 
