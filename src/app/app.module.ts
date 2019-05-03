@@ -30,6 +30,7 @@ import { ChartComponent } from './chart/chart.component';
 import {ChartService} from './chart/service/chart.service';
 import {ChartsModule} from 'ng2-charts';
 import { PopupDateDialogComponent } from './popup-date-dialog/popup-date-dialog.component';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import { PopupDateDialogComponent } from './popup-date-dialog/popup-date-dialog.
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService],
+  providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
