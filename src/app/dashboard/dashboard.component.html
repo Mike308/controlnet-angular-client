@@ -36,6 +36,7 @@
         </mat-chip-list>
       </div>
     </div>
+    <button (click)="onOpenChart('T')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
   </mat-card>
   <mat-card *ngIf="hubSensor.humidityMeasurements.length > 0">
     <mat-card-title>Humidity</mat-card-title>
@@ -44,10 +45,10 @@
         foregroundColor="#33BBFF"
         label="%"
         type="full"
-        value="{{humidityMeasurement.humidity}}"
-      >
+        value="{{humidityMeasurement.humidity}}">
       </ngx-gauge>
     </div>
+    <button (click)="onOpenChart('H')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
   </mat-card>
   <mat-card *ngIf="hubSensor.lightIntensityMeasurements.length > 0">
     <mat-card-title>Light Intensity</mat-card-title>
@@ -55,12 +56,13 @@
       <ngx-gauge
         foregroundColor="#F3E800"
         label="lx"
-        thick="20"
-        min="0"
         max="{{lightIntensity.lightIntensity+10}}"
+        min="0"
+        thick="20"
         type="arch"
         value="{{lightIntensity.lightIntensity}}"></ngx-gauge>
     </div>
+    <button (click)="onOpenChart('LX')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
   </mat-card>
 </div>
 
