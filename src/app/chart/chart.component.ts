@@ -3,6 +3,7 @@ import {ChartService} from './service/chart.service';
 import {ChartDataSets, ChartOptions} from 'chart.js';
 import {BaseChartDirective, Color, Label} from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-chart',
@@ -35,18 +36,52 @@ export class ChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
 
-  constructor(private chartService: ChartService) {
+  constructor(private chartService: ChartService, private activatedRouter: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.chartService.getTemperatures(5, ' ', '').subscribe(
+
+    this.activatedRouter.params.subscribe((params) => {
+      console.log(JSON.stringify(params));
+      if (params.measurementType === 'T') {
+        this.mapTemperatureToDataChart(params.moduleId, params.startDate, params.endDate);
+      } else if (params.measurementType === 'H') {
+        this.mapHumidityMeasurementsToDataChart(params.moduleId, params.startDate, params.endDate);
+      } else if (params.measurementType === 'LX') {
+        this.mapLightIntensityMeasurementsToDataChart(params.moduleId, params.startDate, params.endDate);
+      }
+    });
+  }
+
+  private mapTemperatureToDataChart(moduleId: number, startDate: string, endDate: string) {
+    this.chartService.getTemperatures(moduleId, startDate, endDate).subscribe(
       (value) => {
-        this.chartData = this.chartService.mapDataToChartData(value);
+        this.chartData = this.chartService.mapTemperaturesToChartData(value);
         console.log(JSON.stringify(this.chartData));
         this.dates = this.chartService.getDateForXAxis(value);
       },
       error1 => console.log(error1));
   }
-}
 
+  private mapHumidityMeasurementsToDataChart(moduleId: number, startDate: string, endDate: string) {
+    this.chartService.getHumidityMeasurements(moduleId, startDate, endDate).subscribe(
+      (value) => {
+        this.chartData = this.chartService.mapHumidityMeasurementsToChartData(value);
+        console.log(JSON.stringify(this.chartData));
+        this.dates = this.chartService.getDateForXAxis(value);
+      },
+      error1 => console.log(error1));
+  }
+
+  private mapLightIntensityMeasurementsToDataChart(moduleId: number, startDate: string, endDate: string) {
+    this.chartService.getLightIntensityMeasurements(moduleId, startDate, endDate).subscribe(
+      (value) => {
+        this.chartData = this.chartService.mapLightIntensityMeasurementsToChartData(value);
+        console.log(JSON.stringify(this.chartData));
+        this.dates = this.chartService.getDateForXAxis(value);
+      },
+      error1 => console.log(error1));
+  }
+
+}
 
