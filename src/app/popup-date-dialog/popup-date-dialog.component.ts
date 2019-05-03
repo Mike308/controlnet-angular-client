@@ -38,7 +38,6 @@ export class PopupDateDialogComponent implements OnInit {
 
   onEndTimeChange(value: any) {
     this.data.endTime = value;
-
   }
 
   onStartTimeChange(value: any) {
