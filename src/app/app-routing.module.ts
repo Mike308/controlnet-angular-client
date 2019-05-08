@@ -9,9 +9,11 @@ import {ChartComponent} from './chart/chart.component';
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'index', component: IndexComponent, canActivate: [AuthGuard]},
-  {path: 'dashboard/:moduleId', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'chart/:moduleId/:startDate/:endDate/:measurementType', component: ChartComponent, canActivate: [AuthGuard]}
+  {
+    path: 'dashboard', component: IndexComponent, canActivate: [AuthGuard], children: [
+      {path: ':moduleId', component: DashboardComponent},
+      {path: ':moduleId/chart/:startDate/:endDate/:measurementType', component: ChartComponent}]
+  }
 ];
 
 
