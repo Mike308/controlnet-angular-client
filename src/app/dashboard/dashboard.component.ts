@@ -44,8 +44,8 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Result: ' + JSON.stringify(result));
-      this.router.navigate(['/chart/', this.moduleId, result.startDate.concat(' ', result.startTime),
-        result.endDate.concat(' ', result.endTime), result.measurementType]);
+      this.router.navigate(['chart', result.startDate.concat(' ', result.startTime),
+        result.endDate.concat(' ', result.endTime), result.measurementType], {relativeTo: this.activatedRoute});
     });
   }
 
