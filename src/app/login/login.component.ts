@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginStatusSubscription = this.authService.loginStatus.subscribe(
       (loginStatus) => {
         if (loginStatus.ifLoggedIn) {
-          this.router.navigate(['/index']);
+          this.router.navigate(['dashboard']);
         } else {
           console.log('Wrong password');
         }
