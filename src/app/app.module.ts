@@ -31,6 +31,7 @@ import {ChartService} from './chart/service/chart.service';
 import {ChartsModule} from 'ng2-charts';
 import { PopupDateDialogComponent } from './popup-date-dialog/popup-date-dialog.component';
 import {DatePipe} from '@angular/common';
+import { PopupSlotNameSetupComponent } from './popup-slot-name-setup/popup-slot-name-setup.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +41,10 @@ import {DatePipe} from '@angular/common';
     NavComponent,
     DashboardComponent,
     ChartComponent,
-    PopupDateDialogComponent
+    PopupDateDialogComponent,
+    PopupSlotNameSetupComponent
   ],
-  entryComponents: [DashboardComponent, PopupDateDialogComponent],
+  entryComponents: [DashboardComponent, PopupDateDialogComponent, PopupSlotNameSetupComponent],
   imports: [
     BrowserModule,
     MatButtonModule,
