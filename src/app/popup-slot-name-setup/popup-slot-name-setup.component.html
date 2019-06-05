@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Slot name: " [(ngModel)]="data.slotName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+</div>
