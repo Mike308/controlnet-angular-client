@@ -5,6 +5,7 @@ import {HubModel} from './model/hub.model';
 import {MatDialog} from '@angular/material';
 import {PopupDateDialogComponent} from '../popup-date-dialog/popup-date-dialog.component';
 import {ChartPopupDialogDataModel} from '../shared/model/chart.popup.dialog.data.model';
+import {PopupSlotNameSetupComponent} from '../popup-slot-name-setup/popup-slot-name-setup.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
   hubSensor: HubModel;
 
   constructor(private activatedRoute: ActivatedRoute, private dashboardService: DashboardService,
-              private router: Router, private popupDateDialog: MatDialog) {
+              private router: Router, private popupDateDialog: MatDialog, private popupSlotNameSetupDialog: MatDialog) {
   }
 
 
@@ -49,4 +50,16 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  onOpenSlotNameSetup(slotId: number) {
+    const dialogRef = this.popupSlotNameSetupDialog.open(PopupSlotNameSetupComponent, {
+      width: '500px',
+      data: {
+        sensorId: slotId
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Result: ' + JSON.stringify(result));
+    });
+  }
 }
