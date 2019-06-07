@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardService} from './service/dashboard.service';
 import {HubModel} from './model/hub.model';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {PopupDateDialogComponent} from '../popup-date-dialog/popup-date-dialog.component';
 import {ChartPopupDialogDataModel} from '../shared/model/chart.popup.dialog.data.model';
 import {PopupSlotNameSetupComponent} from '../popup-slot-name-setup/popup-slot-name-setup.component';
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   hubSensor: HubModel;
 
   constructor(private activatedRoute: ActivatedRoute, private dashboardService: DashboardService,
-              private router: Router, private popupDateDialog: MatDialog, private popupSlotNameSetupDialog: MatDialog) {
+              private router: Router, private popupDateDialog: MatDialog, private popupSlotNameSetupDialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
 
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  onOpenChart(measurementType: string){
+  onOpenChart(measurementType: string) {
     const dialogRef = this.popupDateDialog.open(PopupDateDialogComponent, {
       width: '500px',
       data: new ChartPopupDialogDataModel(this.moduleId, measurementType, ' ', '', '', '')
@@ -50,6 +50,15 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  setSensorSlotName(sensorId: number, slotName: string) {
+    this.dashboardService.setSensorSlotName(sensorId, slotName).subscribe(value => {
+        this.snackBar.open('Slot name changed successfully!', 'Slot sensor name setup', {duration: 500});
+      },
+      error1 => {
+        this.snackBar.open('Error!', 'Slot sensor name setup', {duration: 500});
+      });
+  }
+
 
   onOpenSlotNameSetup(slotId: number) {
     const dialogRef = this.popupSlotNameSetupDialog.open(PopupSlotNameSetupComponent, {
@@ -59,7 +68,7 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Result: ' + JSON.stringify(result));
+        this.setSensorSlotName(result.sensorId, result.slotName);
     });
   }
 }

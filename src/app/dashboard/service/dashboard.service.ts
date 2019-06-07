@@ -20,4 +20,8 @@ export class DashboardService {
     return this.httpClient.get<HubModel>(envDevs.url + '/hub/module/' + moduleId, this.httpOptions);
   }
 
+  setSensorSlotName(sensorId: number, slotName: string): Observable<any> {
+    return this.httpClient.post<any>(envDevs.url + '/sensor/set-slot-name', {sensorId, newName: slotName}, this.httpOptions);
+  }
+
 }
