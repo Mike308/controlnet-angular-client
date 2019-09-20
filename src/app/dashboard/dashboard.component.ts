@@ -26,12 +26,18 @@ export class DashboardComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (params) => {
         this.moduleId = params.moduleId;
-        this.dashboardService.getSensorHub(params.moduleId).subscribe(
-          (result) => this.hubSensor = result,
-          error1 => {
-            console.log(error1);
-          }
-        );
+        this.loadHubSensor(params.moduleId);
+      }
+    );
+  }
+
+  loadHubSensor(moduleId: number) {
+    this.dashboardService.getSensorHub(moduleId).subscribe(
+      (refHubSensor) => {
+        this.hubSensor = refHubSensor;
+      },
+      error1 => {
+        console.log(error1);
       }
     );
   }
@@ -53,6 +59,8 @@ export class DashboardComponent implements OnInit {
   setSensorSlotName(sensorId: number, slotName: string) {
     this.dashboardService.setSensorSlotName(sensorId, slotName).subscribe(value => {
         this.snackBar.open('Slot name changed successfully!', 'Slot sensor name setup', {duration: 500});
+        this.loadHubSensor(this.moduleId);
+
       },
       error1 => {
         this.snackBar.open('Error!', 'Slot sensor name setup', {duration: 500});
@@ -68,7 +76,7 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-        this.setSensorSlotName(result.sensorId, result.slotName);
+      this.setSensorSlotName(result.sensorId, result.slotName);
     });
   }
 }
