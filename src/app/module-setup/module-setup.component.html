@@ -1,0 +1,26 @@
+<div fxLayout="row" fxLayoutGap="20px">
+  <mat-card>
+    <mat-card-title>Module definition</mat-card-title>
+    <form [formGroup]="newModuleFormGroup" (ngSubmit)="onModuleSave()">
+      <div fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <input matInput placeholder="Module name" formControlName="moduleNameCtrl">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Module address" formControlName="moduleAddressCtrl">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="moduleTypesCtrl">
+            <mat-label>Module type</mat-label>
+            <mat-option *ngFor="let moduleType of moduleTypes" [value]="moduleType.val">{{moduleType.description}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Commands definition</mat-card-title>
+  </mat-card>
+</div>
