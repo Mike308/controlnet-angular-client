@@ -1,0 +1,15 @@
+<mat-dialog-content>
+  <div fxLayout="column">
+    <form [formGroup]="commandFormGroup">
+      <mat-form-field>
+        <input matInput placeholder="Command" formControlName="commandCtrl">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Command Order" formControlName="commandOrderCtrl">
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onAdd()">Add</button>
+</mat-dialog-actions>
