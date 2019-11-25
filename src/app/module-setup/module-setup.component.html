@@ -31,6 +31,7 @@
           <mat-cell *matCellDef="let dataRow;">{{dataRow.commandOrder}}</mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-header-row *matRowDef="let row; columns: displayedColumns;"></mat-header-row>
       </mat-table>
       <button mat-raised-button color="primary" (click)="onAddCommand()">Add command</button>
       <button mat-raised-button color="primary">Save</button>
