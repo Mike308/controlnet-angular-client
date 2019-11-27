@@ -68,8 +68,12 @@ export class ModuleSetupComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.commands.push(result);
-      this.commandsDataSource.data = this.commands;
+      if (result != null) {
+        if (result.command != null) {
+          this.commands.push(result);
+          this.commandsDataSource.data = this.commands;
+        }
+      }
     });
   }
 }
