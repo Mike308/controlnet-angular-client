@@ -1,0 +1,6 @@
+<mat-toolbar color="primary" class="mat-elevation-z5">
+  <span>Controlnet</span>
+  <span class="fill-remaining-space"></span>
+  <span class="current-user" *ngIf="ifLoggedIn">Zalogowany jako:
+    <a  class="current-user" [routerLink]="" (click)="logout()">Wyloguj się</a> </span>
+</mat-toolbar>
