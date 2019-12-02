@@ -1,9 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="height: 100%; width: 100%; margin-left: 50px; margin-right: 50px" fxLayout="row" fxLayoutGap="50px">
-  <div *ngIf="ifLoggedIn">
-    <app-nav></app-nav>
+<div class="app-back">
+  <div fxLayout="column">
+    <app-header></app-header>
+    <div class="app-component" fxLayout="row" fxLayoutGap="50px">
+      <div *ngIf="ifLoggedIn">
+        <app-nav></app-nav>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
-    <router-outlet></router-outlet>
 </div>
 
 
