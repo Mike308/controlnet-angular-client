@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DictionaryModel} from '../shared/model/dictionary.model';
-import {ModuleSetupService} from './service/module.setup.service';
 import {MatDialog, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {CommandModel} from '../shared/model/command.model';
 import {CommandComponent} from '../command/command.component';
+import {ModuleService} from '../shared/service/module.service';
 
 @Component({
   selector: 'app-module-setup',
@@ -20,16 +20,17 @@ export class ModuleSetupComponent implements OnInit {
   commands: CommandModel[] = [];
   commandsDataSource = new MatTableDataSource<CommandModel>();
 
-  constructor(private moduleSetupService: ModuleSetupService, private matSnackBar: MatSnackBar, private addCommandDialog: MatDialog) {
+
+  constructor(private moduleService: ModuleService, private matSnackBar: MatSnackBar, private addCommandDialog: MatDialog) {
   }
 
   ngOnInit() {
     this.initForm();
-    this.moduleSetupService.getModulesTypes().subscribe(moduleTypes => {
+    this.moduleService.getModulesTypes().subscribe(moduleTypes => {
       this.moduleTypes = moduleTypes;
     }, error1 => this.matSnackBar.open('Error while module types are fetching', 'Module types fetching'));
 
-    this.moduleSetupService.getCommands(this.moduleId).subscribe(commands => {
+    this.moduleService.getCommands(this.moduleId).subscribe(commands => {
       this.commands = commands;
       this.commandsDataSource.data = commands;
     }, error1 => this.matSnackBar.open('Error while commands are fetching', 'Command fetching'));
@@ -46,19 +47,20 @@ export class ModuleSetupComponent implements OnInit {
   }
 
   onModuleSave() {
-    this.moduleSetupService.addModule({
+    this.moduleService.addModule({
       id: null,
       name: this.newModuleFormGroup.get('moduleNameCtrl').value,
       address: this.newModuleFormGroup.get('moduleAddressCtrl').value,
       type: this.newModuleFormGroup.get('moduleTypesCtrl').value
     }).subscribe(moduleId => {
       this.moduleId = moduleId;
+      this.moduleService.newModuleInserted.next(moduleId);
     }, error1 => this.matSnackBar.open('Error while saving module', 'Saving module'));
   }
 
 
   onSaveCommand() {
-
+    this.moduleService.addCommands(this.commands);
   }
 
   onAddCommand() {
