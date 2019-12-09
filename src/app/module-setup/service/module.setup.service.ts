@@ -30,4 +30,8 @@ export class ModuleSetupService {
   addModule(module: ModuleModel): Observable<number> {
     return this.httpClient.post<number>(environment.url + '/modules/add-new-module', module, this.httpOptions);
   }
+
+  addCommands(commands: CommandModel[]): Observable<void> {
+    return this.httpClient.post<void>(environment.url + '/commands/add', commands, this.httpOptions);
+  }
 }
