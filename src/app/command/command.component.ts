@@ -11,12 +11,14 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CommandComponent implements OnInit {
   commandFormGroup: FormGroup;
   newCommand: CommandModel;
+  moduleId = -1;
 
 
   constructor(public dialogRef: MatDialogRef<CommandComponent>, @Inject(MAT_DIALOG_DATA) public data: CommandModel) { }
 
   ngOnInit() {
     this.initForm();
+
   }
 
   initForm() {
