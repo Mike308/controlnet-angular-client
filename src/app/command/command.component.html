@@ -1,14 +1,14 @@
 <mat-dialog-content>
-  <div fxLayout="column">
-    <form [formGroup]="commandFormGroup">
+  <form [formGroup]="commandFormGroup">
+    <div fxLayout="column">
       <mat-form-field>
-        <input matInput placeholder="Command" formControlName="commandCtrl">
+        <input formControlName="commandCtrl" matInput placeholder="Command">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Command Order" formControlName="commandOrderCtrl">
+        <input formControlName="commandOrderCtrl" matInput placeholder="Command Order">
       </mat-form-field>
-    </form>
-  </div>
+    </div>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="onAdd()">Add</button>
