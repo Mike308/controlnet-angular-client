@@ -5,6 +5,8 @@ import {MatDialog, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {CommandModel} from '../shared/model/command.model';
 import {CommandComponent} from '../command/command.component';
 import {ModuleService} from '../shared/service/module.service';
+import {ActivatedRoute} from '@angular/router';
+import {ModuleModel} from '../shared/model/module.model';
 
 @Component({
   selector: 'app-module-setup',
@@ -18,6 +20,7 @@ export class ModuleSetupComponent implements OnInit {
   moduleId: number;
   displayedColumns: string[] = ['command', 'order'];
   commands: CommandModel[] = [];
+  module: ModuleModel;
   commandsDataSource = new MatTableDataSource<CommandModel>();
 
 
@@ -63,12 +66,20 @@ export class ModuleSetupComponent implements OnInit {
     }).subscribe(moduleId => {
       this.moduleId = moduleId;
       this.moduleService.newModuleInserted.next(moduleId);
-    }, error1 => this.matSnackBar.open('Error while saving module', 'Saving module'));
+    }, error1 => this.matSnackBar.open('Error while saving module', 'Saving module', {
+      duration: 2500
+    }));
   }
 
 
   onSaveCommand() {
-    this.moduleService.addCommands(this.commands);
+    this.moduleService.addCommands(this.commands).subscribe(result => {
+      this.matSnackBar.open('Command saved', 'Saving commands', {
+        duration: 2500
+      });
+    }, error1 => this.matSnackBar.open('Error while saving commands', 'Saving commands', {
+      duration: 2500
+    }));
   }
 
   onAddCommand() {
