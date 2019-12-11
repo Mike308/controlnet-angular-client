@@ -5,11 +5,19 @@ import { AppComponent } from './app.component';
 import {
   MatButtonModule,
   MatCardModule,
-  MatChipsModule, MatDatepickerModule,
+  MatChipsModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatListModule, MatNativeDateModule, MatOptionModule, MatSelectModule, MatSnackBarModule, MatStepperModule, MatTableModule
+  MatListModule,
+  MatNativeDateModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatSnackBarModule,
+  MatStepperModule,
+  MatTableModule,
+  MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -36,6 +44,8 @@ import { CommandComponent } from './command/command.component';
 import { ModuleSetupComponent } from './module-setup/module-setup.component';
 import { ModulePanelComponent } from './module-panel/module-panel.component';
 import {ModuleSetupService} from './module-setup/service/module.setup.service';
+import {ModuleService} from './shared/service/module.service';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +59,8 @@ import {ModuleSetupService} from './module-setup/service/module.setup.service';
     PopupSlotNameSetupComponent,
     CommandComponent,
     ModuleSetupComponent,
-    ModulePanelComponent
+    ModulePanelComponent,
+    HeaderComponent
   ],
   entryComponents: [DashboardComponent, PopupDateDialogComponent, PopupSlotNameSetupComponent, CommandComponent],
   imports: [
@@ -76,9 +87,10 @@ import {ModuleSetupService} from './module-setup/service/module.setup.service';
     MatStepperModule,
     MatSelectModule,
     MatOptionModule,
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule
   ],
-  providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService, ModuleSetupService, DatePipe],
+  providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService, ModuleSetupService, ModuleService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
