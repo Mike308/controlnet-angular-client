@@ -5,6 +5,8 @@ import {AuthGuard} from './guard/auth.guard';
 import {IndexComponent} from './index/index.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ChartComponent} from './chart/chart.component';
+import {ModulePanelComponent} from './module-panel/module-panel.component';
+import {ModuleSetupComponent} from './module-setup/module-setup.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -13,6 +15,10 @@ const appRoutes: Routes = [
     path: 'dashboard', component: IndexComponent, canActivate: [AuthGuard], children: [
       {path: ':moduleId', component: DashboardComponent},
       {path: ':moduleId/chart/:startDate/:endDate/:measurementType', component: ChartComponent}]
+  },
+  {path: 'module-panel', component: ModulePanelComponent, canDeactivate: [AuthGuard]},
+  {
+    path: 'module-setup/:moduleId', component: ModuleSetupComponent, canActivate: [AuthGuard]
   }
 ];
 
