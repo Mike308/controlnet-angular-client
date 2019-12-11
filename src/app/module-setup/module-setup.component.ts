@@ -21,7 +21,7 @@ export class ModuleSetupComponent implements OnInit {
   commandsDataSource = new MatTableDataSource<CommandModel>();
 
 
-  constructor(private moduleService: ModuleService, private matSnackBar: MatSnackBar, private addCommandDialog: MatDialog) {
+  constructor(private moduleService: ModuleService, private matSnackBar: MatSnackBar, private addCommandDialog: MatDialog, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -30,10 +30,18 @@ export class ModuleSetupComponent implements OnInit {
       this.moduleTypes = moduleTypes;
     }, error1 => this.matSnackBar.open('Error while module types are fetching', 'Module types fetching'));
 
-    this.moduleService.getCommands(this.moduleId).subscribe(commands => {
-      this.commands = commands;
-      this.commandsDataSource.data = commands;
-    }, error1 => this.matSnackBar.open('Error while commands are fetching', 'Command fetching'));
+    this.activatedRoute.params.subscribe(params => {
+      console.log(JSON.stringify(params));
+      if (params.moduleId === 'new') {
+        return;
+      } else {
+        this.moduleId = params.moduleId;
+        this.getCommands(this.moduleId);
+        this.getModule(this.moduleId);
+      }
+    });
+
+
   }
 
   initForm() {
@@ -77,5 +85,26 @@ export class ModuleSetupComponent implements OnInit {
         }
       }
     });
+  }
+
+  getCommands(moduleId: number) {
+    this.moduleService.getCommands(moduleId).subscribe(commands => {
+      this.commands = commands;
+      this.commandsDataSource.data = commands;
+    }, error1 => this.matSnackBar.open('Error while commands are fetching', 'Command fetching'));
+  }
+
+  getModule(moduleId: number) {
+    this.moduleService.getModule(moduleId).subscribe(module => {
+      this.module = module;
+      console.log('Module: ' + JSON.stringify(module));
+      this.newModuleFormGroup.patchValue({
+        moduleNameCtrl: module.name,
+        moduleAddressCtrl: module.address,
+        moduleTypesCtrl: module.type
+      });
+    }, error1 => this.matSnackBar.open('Error while module is fetching', 'Module fetching', {
+      duration: 2500
+    }));
   }
 }
