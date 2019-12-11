@@ -12,7 +12,7 @@ export class DashboardService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-type': 'application/json',
-      'Authorization': this.authService.token
+      Authorization: this.authService.token
     })
   };
 

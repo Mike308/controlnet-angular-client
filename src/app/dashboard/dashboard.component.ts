@@ -18,7 +18,8 @@ export class DashboardComponent implements OnInit {
   hubSensor: HubModel;
 
   constructor(private activatedRoute: ActivatedRoute, private dashboardService: DashboardService,
-              private router: Router, private popupDateDialog: MatDialog, private popupSlotNameSetupDialog: MatDialog, private snackBar: MatSnackBar) {
+              private router: Router, private popupDateDialog: MatDialog,
+              private popupSlotNameSetupDialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
 
@@ -64,6 +65,10 @@ export class DashboardComponent implements OnInit {
       error1 => {
         this.snackBar.open('Error!', 'Slot sensor name setup', {duration: 500});
       });
+  }
+
+  onEditModule() {
+    this.router.navigate(['../module-setup', this.moduleId]).catch(reason => console.log(JSON.stringify(reason)));
   }
 
 

@@ -9,6 +9,4 @@ export class ModuleModel {
     this.address = address;
   }
 
-
-
 }
