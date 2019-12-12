@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutGap="20px">
+<div fxLayout="row" fxLayoutGap="20px">
   <mat-card>
     <mat-card-title>Module definition</mat-card-title>
     <form [formGroup]="newModuleFormGroup" (ngSubmit)="onModuleSave()">
-      <div fxLayout="column" fxLayoutGap="5%">
+      <div fxLayout="column" fxLayoutGap="10px">
         <mat-form-field>
           <input matInput placeholder="Module name" formControlName="moduleNameCtrl">
         </mat-form-field>
@@ -20,8 +20,16 @@
   </mat-card>
   <mat-card style="min-width: 480px">
     <mat-card-title>Commands definition</mat-card-title>
-    <div fxLayout="column" fxLayoutGap="5%">
+    <div fxLayout="column" fxLayoutGap="10px">
       <mat-table [dataSource]="commandsDataSource">
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? customToggle(row) : null"
+                          [checked]="selectionDataSource.isSelected(row)" color="primary"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="command">
           <mat-header-cell *matHeaderCellDef>Command</mat-header-cell>
           <mat-cell *matCellDef="let dataRow;">{{dataRow.command}}</mat-cell>
@@ -33,7 +41,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-header-row *matRowDef="let row; columns: displayedColumns;"></mat-header-row>
       </mat-table>
-      <button mat-raised-button color="primary" (click)="onAddCommand()">Add command</button>
+      <button mat-raised-button color="primary" (click)="onAddCommand()">{{addButtonLabel}}</button>
       <button mat-raised-button color="primary" (click)="onSaveCommand()">Save</button>
       <button mat-raised-button color="primary">Remove</button>
     </div>
