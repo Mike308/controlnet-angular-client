@@ -14,7 +14,8 @@ const appRoutes: Routes = [
   {
     path: 'dashboard', component: IndexComponent, canActivate: [AuthGuard], children: [
       {path: ':moduleId', component: DashboardComponent},
-      {path: ':moduleId/chart/:startDate/:endDate/:measurementType', component: ChartComponent}]
+      {path: ':moduleId/chart/:startDate/:endDate/:measurementType', component: ChartComponent},
+      {path: ':moduleId/edit', component: ModuleSetupComponent, canActivate: [AuthGuard]}]
   },
   {path: 'module-panel', component: ModulePanelComponent, canDeactivate: [AuthGuard]},
   {
