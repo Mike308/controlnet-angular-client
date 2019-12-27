@@ -9,19 +9,16 @@ import {envDevs} from '../../shared/env.defs';
 export class DashboardService {
   constructor (private  httpClient: HttpClient, private authService: AuthService) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-type': 'application/json',
-      Authorization: this.authService.token
-    })
-  };
-
   getSensorHub(moduleId: number): Observable<HubModel> {
-    return this.httpClient.get<HubModel>(envDevs.url + '/hub/module/' + moduleId, this.httpOptions);
+    return this.httpClient.get<HubModel>(envDevs.url + '/hub/module/' + moduleId, this.authService.httpOptions);
   }
 
   setSensorSlotName(sensorId: number, slotName: string): Observable<any> {
-    return this.httpClient.post<any>(envDevs.url + '/sensor/set-slot-name', {sensorId, newName: slotName}, this.httpOptions);
+    return this.httpClient.post<any>(envDevs.url + '/sensor/set-slot-name', {sensorId, newName: slotName}, this.authService.httpOptions);
+  }
+
+  deleteAllMeasurmentsAndSensors(moduleId: number): Observable<void> {
+    return this.httpClient.get<void>(envDevs.url + '/hub/remove-sensors/' + moduleId, this.authService.httpOptions);
   }
 
 }
