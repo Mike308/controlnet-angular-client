@@ -17,7 +17,7 @@ export class DashboardService {
     return this.httpClient.post<any>(environment.url + '/sensor/set-slot-name', {sensorId, newName: slotName}, this.authService.httpOptions);
   }
 
-  deleteAllMeasurmentsAndSensors(moduleId: number): Observable<void> {
+  deleteAllMeasurementsAndSensors(moduleId: number): Observable<void> {
     return this.httpClient.get<void>(environment.url + '/hub/remove-sensors/' + moduleId, this.authService.httpOptions);
   }
 
