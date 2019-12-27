@@ -17,11 +17,11 @@ export class ModuleService {
   }
 
   getModules(): Observable<ModuleModel[]> {
-    return this.httpClient.get<ModuleModel[]>(envDevs.url + '/modules/all', this.authService.httpOptions);
+    return this.httpClient.get<ModuleModel[]>(environment.url + '/modules/all', this.authService.httpOptions);
   }
 
   getModule(moduleId: number): Observable<ModuleModel> {
-    return this.httpClient.get<ModuleModel>(envDevs.url + '/modules/module/' + moduleId, this.authService.httpOptions);
+    return this.httpClient.get<ModuleModel>(environment.url + '/modules/module/' + moduleId, this.authService.httpOptions);
   }
 
   deleteModule(moduleId: number): Observable<void> {
