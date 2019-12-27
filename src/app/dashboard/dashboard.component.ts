@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onRemoveModule() {
-    this.dashboardService.deleteAllMeasurmentsAndSensors(this.moduleId).subscribe(result => {
+    this.dashboardService.deleteAllMeasurementsAndSensors(this.moduleId).subscribe(result => {
       this.deleteCommands(this.moduleId);
     }, error1 => this.snackBar.open('Error while removing measurements and sensors', 'Sensor removal', {
       duration: 2500
