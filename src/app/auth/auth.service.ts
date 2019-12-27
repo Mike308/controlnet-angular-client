@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {UserModel} from './model/user.model';
 
@@ -11,6 +11,15 @@ export class AuthService {
   ifLoggedIn = false;
   loginStatus = new Subject<UserModel>();
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-type': 'application/json',
+      Authorization: this.token
+    })
+  };
+
+
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -20,7 +29,13 @@ export class AuthService {
         this.loginStatus.next(new UserModel(name, true, '  '));
         this.token = result.token;
         this.ifLoggedIn = true;
-        console.log('Token: ' + result.token);
+        this.httpOptions = {
+          headers: new HttpHeaders({
+            'Content-type': 'application/json',
+            Authorization: result.token
+          })
+        };
+
       },
       error1 => this.loginStatus.next(new UserModel(' ', false, ' '))
     );
