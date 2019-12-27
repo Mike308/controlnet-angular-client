@@ -30,6 +30,10 @@ export class ModuleService {
     return this.httpClient.get<ModuleModel>(envDevs.url + '/modules/module/' + moduleId, this.httpOptions);
   }
 
+  deleteModule(moduleId: number): Observable<void> {
+    return this.httpClient.get<void>(envDevs.url + '/modules/delete-module/' + moduleId, this.httpOptions);
+  }
+
   getModulesTypes(): Observable<DictionaryModel[]> {
     return this.httpClient.get<DictionaryModel[]>(environment.url + '/dictionary/modules-types', this.httpOptions);
   }
@@ -42,7 +46,17 @@ export class ModuleService {
     return this.httpClient.post<number>(environment.url + '/modules/add-new-module', module, this.httpOptions);
   }
 
-  addCommands(commands: CommandModel[]): Observable<void> {
-    return this.httpClient.post<void>(environment.url + '/commands/add', commands, this.httpOptions);
+  addCommands(commands: CommandModel): Observable<CommandModel> {
+    return this.httpClient.post<CommandModel>(environment.url + '/commands/add', commands, this.httpOptions);
   }
+
+  deleteCommand(id: number): Observable<void> {
+    return this.httpClient.get<void>(environment.url + '/commands/delete/' + id, this.httpOptions);
+  }
+
+  deleteCommands(moduleId: number): Observable<void> {
+    return this.httpClient.get<void>(environment.url + '/commands/delete-all/' + moduleId, this.httpOptions);
+  }
+
+
 }
