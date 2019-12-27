@@ -1,6 +1,7 @@
 <!--suppress ALL -->
 <div fxLayout="row" fxLayoutGap="20px">
   <button mat-raised-button color="primary" (click)="onEditModule()">Edit module</button>
+  <button mat-raised-button color="primary" (click)="onRemoveModule()">Remove module</button>
   <mat-card *ngIf="hubSensor.temperatures.length > 0" width="600px">
     <mat-card-title>Temperatures</mat-card-title>
     <div fxLayout="row" fxLayoutGap="20px">

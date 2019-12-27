@@ -6,6 +6,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {PopupDateDialogComponent} from '../popup-date-dialog/popup-date-dialog.component';
 import {ChartPopupDialogDataModel} from '../shared/model/chart.popup.dialog.data.model';
 import {PopupSlotNameSetupComponent} from '../popup-slot-name-setup/popup-slot-name-setup.component';
+import {ModuleService} from '../shared/service/module.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private dashboardService: DashboardService,
               private router: Router, private popupDateDialog: MatDialog,
-              private popupSlotNameSetupDialog: MatDialog, private snackBar: MatSnackBar) {
+              private popupSlotNameSetupDialog: MatDialog, private snackBar: MatSnackBar,
+              private moduleService: ModuleService) {
   }
 
 
@@ -68,7 +70,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onEditModule() {
-    this.router.navigate(['../module-setup', this.moduleId]).catch(reason => console.log(JSON.stringify(reason)));
+    this.router.navigate(['edit'], {relativeTo: this.activatedRoute}).catch(reason => console.log(JSON.stringify(reason)));
   }
 
 
@@ -83,4 +85,33 @@ export class DashboardComponent implements OnInit {
       this.setSensorSlotName(result.sensorId, result.slotName);
     });
   }
+
+  onRemoveModule() {
+    this.dashboardService.deleteAllMeasurmentsAndSensors(this.moduleId).subscribe(result => {
+      this.deleteCommands(this.moduleId);
+    }, error1 => this.snackBar.open('Error while removing measurements and sensors', 'Sensor removal', {
+      duration: 2500
+    }));
+  }
+
+  deleteModule(moduleId: number) {
+    this.moduleService.deleteModule(moduleId).subscribe(result => {
+      this.snackBar.open('Successfully removed a module', 'Module removal', {
+        duration: 2500
+      });
+      this.moduleService.newModuleInserted.next(-1);
+      this.router.navigate(['dashboard']);
+    }, error1 => this.snackBar.open('Error while removing module', 'Module removal', {
+      duration: 2500
+    }));
+  }
+
+  deleteCommands(moduleId: number) {
+    this.moduleService.deleteCommands(moduleId).subscribe(result => {
+      this.deleteModule(moduleId);
+    }, error1 => this.snackBar.open('Error while removing commands', 'Command removal', {
+      duration: 2500
+    }));
+  }
+
 }
