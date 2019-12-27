@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatCheckboxModule,
   MatChipsModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -17,7 +17,7 @@ import {
   MatSnackBarModule,
   MatStepperModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -28,7 +28,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { IndexComponent } from './index/index.component';
 import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {NavService} from './nav/service/nav.service';
 import {AppRoutingModule} from './app.routing.module';
 import {AuthGuard} from './guard/auth.guard';
 import {DashboardService} from './dashboard/service/dashboard.service';
@@ -43,7 +42,6 @@ import { PopupSlotNameSetupComponent } from './popup-slot-name-setup/popup-slot-
 import { CommandComponent } from './command/command.component';
 import { ModuleSetupComponent } from './module-setup/module-setup.component';
 import { ModulePanelComponent } from './module-panel/module-panel.component';
-import {ModuleSetupService} from './module-setup/service/module.setup.service';
 import {ModuleService} from './shared/service/module.service';
 import { HeaderComponent } from './header/header.component';
 
@@ -88,9 +86,10 @@ import { HeaderComponent } from './header/header.component';
     MatSelectModule,
     MatOptionModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule
   ],
-  providers: [AuthService, NavService, AuthGuard, DashboardService, ChartService, ModuleSetupService, ModuleService, DatePipe],
+  providers: [AuthService, AuthGuard, DashboardService, ChartService, ModuleService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
