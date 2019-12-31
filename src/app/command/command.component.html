@@ -11,5 +11,5 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="onAdd()">Add</button>
+  <button mat-raised-button color="primary" (click)="onAdd()" [disabled]="!commandFormGroup.valid">Save</button>
 </mat-dialog-actions>

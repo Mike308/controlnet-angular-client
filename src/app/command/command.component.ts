@@ -10,27 +10,26 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class CommandComponent implements OnInit {
   commandFormGroup: FormGroup;
-  newCommand: CommandModel;
   moduleId = -1;
 
 
-  constructor(public dialogRef: MatDialogRef<CommandComponent>, @Inject(MAT_DIALOG_DATA) public data: CommandModel) { }
+  constructor(public dialogRef: MatDialogRef<CommandComponent>, @Inject(MAT_DIALOG_DATA) public data: CommandModel) {
+  }
 
   ngOnInit() {
     this.initForm();
-
   }
 
   initForm() {
     this.commandFormGroup = new FormGroup({
-      commandCtrl: new FormControl('', Validators.required),
-      commandOrderCtrl: new FormControl('', Validators.required)
+      commandCtrl: new FormControl(this.data.command, Validators.required),
+      commandOrderCtrl: new FormControl(this.data.commandOrder, Validators.compose([Validators.pattern(/^[0-9]\d*$/), Validators.required]))
     });
   }
 
   onAdd() {
     this.data = {
-      id: null,
+      id: this.data.id,
       moduleId: this.data.moduleId,
       command: this.commandFormGroup.get('commandCtrl').value,
       commandOrder: this.commandFormGroup.get('commandOrderCtrl').value
