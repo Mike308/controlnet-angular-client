@@ -1,79 +1,84 @@
 <!--suppress ALL -->
-<div fxLayout="row" fxLayoutGap="20px">
-  <button mat-raised-button color="primary" (click)="onEditModule()">Edit module</button>
-  <button mat-raised-button color="primary" (click)="onRemoveModule()">Remove module</button>
-  <mat-card *ngIf="hubSensor.temperatures.length > 0" width="600px">
-    <mat-card-title>Temperatures</mat-card-title>
-    <div fxLayout="row" fxLayoutGap="20px">
-      <div *ngFor="let temperature of hubSensor.temperatures">
-        <linear-gauge
-          animation-duration="1500"
-          animation-rule="linear"
-          bar-width="10"
-          border-shadow-width="0"
-          borders="false"
-          color-bar-progress="#327ac0"
-          color-plate="#fff"
-          height="400"
-          major-ticks="-10,0,10,20,30,40,50"
-          max-value="50"
-          min-value="-20"
-          minor-ticks="5"
-          needle-circle-inner="false"
-          needle-circle-outer="true"
-          needle-circle-size="7"
-          needle-type="arrow"
-          needle-width="2"
-          start-angle="90"
-          stroke-ticks="true"
-          ticks-angle="180"
-          units="°C"
-          value="{{temperature.temperature}}"
-          value-box="false"
-          width="120">
-        </linear-gauge>
+
+<div fxLayout="column" fxLayoutGap="20px">
+  <div fxLayoutGap="row" fxLayoutGap="20px">
+    <button mat-raised-button color="primary" (click)="onEditModule()">Edit module</button>
+    <button mat-raised-button color="primary" (click)="onRemoveModule()">Remove module</button>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px">
+    <mat-card *ngIf="hubSensor.temperatures.length > 0" width="600px">
+      <mat-card-title>Temperatures</mat-card-title>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div *ngFor="let temperature of hubSensor.temperatures">
+          <linear-gauge
+            animation-duration="1500"
+            animation-rule="linear"
+            bar-width="10"
+            border-shadow-width="0"
+            borders="false"
+            color-bar-progress="#327ac0"
+            color-plate="#fff"
+            height="400"
+            major-ticks="-10,0,10,20,30,40,50"
+            max-value="50"
+            min-value="-20"
+            minor-ticks="5"
+            needle-circle-inner="false"
+            needle-circle-outer="true"
+            needle-circle-size="7"
+            needle-type="arrow"
+            needle-width="2"
+            start-angle="90"
+            stroke-ticks="true"
+            ticks-angle="180"
+            units="°C"
+            value="{{temperature.temperature}}"
+            value-box="false"
+            width="120">
+          </linear-gauge>
+          <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
+            <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(temperature.sensorId)">{{temperature.slotName}}</mat-chip>
+            <mat-chip color="primary" selected>{{temperature.temperature}}</mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <button (click)="onOpenChart('T')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
+    </mat-card>
+    <mat-card *ngIf="hubSensor.humidityMeasurements.length > 0">
+      <mat-card-title>Humidity</mat-card-title>
+      <div *ngFor="let humidityMeasurement of hubSensor.humidityMeasurements" fxLayout="column" fxLayoutGap="10px">
+        <ngx-gauge
+          foregroundColor="#33BBFF"
+          label="%"
+          type="full"
+          animate="false"
+          value="{{humidityMeasurement.humidity}}">
+        </ngx-gauge>
         <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
-          <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(temperature.sensorId)">{{temperature.slotName}}</mat-chip>
-          <mat-chip color="primary" selected>{{temperature.temperature}}</mat-chip>
+          <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(humidityMeasurement.sensorId)">{{humidityMeasurement.slotName}}</mat-chip>
         </mat-chip-list>
       </div>
-    </div>
-    <button (click)="onOpenChart('T')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
-  </mat-card>
-  <mat-card *ngIf="hubSensor.humidityMeasurements.length > 0">
-    <mat-card-title>Humidity</mat-card-title>
-    <div *ngFor="let humidityMeasurement of hubSensor.humidityMeasurements" fxLayout="column" fxLayoutGap="10px">
-      <ngx-gauge
-        foregroundColor="#33BBFF"
-        label="%"
-        type="full"
-        value="{{humidityMeasurement.humidity}}">
-      </ngx-gauge>
-      <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
-        <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(humidityMeasurement.sensorId)">{{humidityMeasurement.slotName}}</mat-chip>
-      </mat-chip-list>
-    </div>
-    <button (click)="onOpenChart('H')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
-  </mat-card>
-  <mat-card *ngIf="hubSensor.lightIntensityMeasurements.length > 0">
-    <mat-card-title>Light Intensity</mat-card-title>
-    <div *ngFor="let lightIntensity of hubSensor.lightIntensityMeasurements">
-      <ngx-gauge
-        foregroundColor="#F3E800"
-        label="lx"
-        max="{{lightIntensity.lightIntensity+10}}"
-        min="0"
-        thick="20"
-        type="arch"
-        value="{{lightIntensity.lightIntensity}}"></ngx-gauge>
-      <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
-        <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(lightIntensity.sensorId)">{{lightIntensity.slotName}}</mat-chip>
-      </mat-chip-list>
-    </div>
-    <button (click)="onOpenChart('LX')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
-  </mat-card>
+      <button (click)="onOpenChart('H')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
+    </mat-card>
+    <mat-card *ngIf="hubSensor.lightIntensityMeasurements.length > 0">
+      <mat-card-title>Light Intensity</mat-card-title>
+      <div *ngFor="let lightIntensity of hubSensor.lightIntensityMeasurements">
+        <ngx-gauge
+          foregroundColor="#F3E800"
+          label="lx"
+          max="{{lightIntensity.lightIntensity+10}}"
+          min="0"
+          thick="20"
+          type="arch"
+          value="{{lightIntensity.lightIntensity}}"></ngx-gauge>
+        <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
+          <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(lightIntensity.sensorId)">{{lightIntensity.slotName}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <button (click)="onOpenChart('LX')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
+    </mat-card>
+  </div>
 </div>
-
 
 
 
