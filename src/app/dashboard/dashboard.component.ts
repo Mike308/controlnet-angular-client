@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
 
   moduleId: number;
   hubSensor: HubModel;
+  interval: any;
 
   constructor(private activatedRoute: ActivatedRoute, private dashboardService: DashboardService,
               private router: Router, private popupDateDialog: MatDialog,
@@ -30,8 +31,15 @@ export class DashboardComponent implements OnInit {
       (params) => {
         this.moduleId = params.moduleId;
         this.loadHubSensor(params.moduleId);
+        this.interval = setInterval(() => {
+          this.loadHubSensor(params.moduleId);
+        }, 1000);
       }
     );
+
+
+
+
   }
 
   loadHubSensor(moduleId: number) {
