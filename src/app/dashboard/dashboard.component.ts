@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardService} from './service/dashboard.service';
 import {HubModel} from './model/hub.model';
@@ -13,7 +13,7 @@ import {ModuleService} from '../shared/service/module.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   moduleId: number;
   hubSensor: HubModel;
@@ -36,10 +36,10 @@ export class DashboardComponent implements OnInit {
         }, 1000);
       }
     );
+  }
 
-
-
-
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
   }
 
   loadHubSensor(moduleId: number) {
