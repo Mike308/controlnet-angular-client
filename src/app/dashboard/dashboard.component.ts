@@ -31,11 +31,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (params) => {
         this.moduleId = params.moduleId;
         this.loadHubSensor(params.moduleId);
-        this.interval = setInterval(() => {
-          this.loadHubSensor(params.moduleId);
-        }, 1000);
       }
     );
+    this.interval = setInterval(() => {
+      this.loadHubSensor(this.moduleId);
+    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -70,7 +70,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dashboardService.setSensorSlotName(sensorId, slotName).subscribe(value => {
         this.snackBar.open('Slot name changed successfully!', 'Slot sensor name setup', {duration: 500});
         this.loadHubSensor(this.moduleId);
-
       },
       error1 => {
         this.snackBar.open('Error!', 'Slot sensor name setup', {duration: 500});
