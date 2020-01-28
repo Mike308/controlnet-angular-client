@@ -51,7 +51,7 @@
           foregroundColor="#33BBFF"
           label="%"
           type="full"
-          animate="false"
+          [animate]="isAnimating"
           value="{{humidityMeasurement.humidity}}">
         </ngx-gauge>
         <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
@@ -70,7 +70,7 @@
           min="0"
           thick="20"
           type="arch"
-          animate="false"
+          [animate]="isAnimating"
           value="{{lightIntensity.lightIntensity}}"></ngx-gauge>
         <mat-chip-list aria-orientation="vertical" class="mat-chip-list-stacked">
           <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(lightIntensity.sensorId)">{{lightIntensity.slotName}}</mat-chip>

@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   moduleId: number;
   hubSensor: HubModel;
   interval: any;
+  timeout: any;
+  isAnimating = false;
 
   constructor(private activatedRoute: ActivatedRoute, private dashboardService: DashboardService,
               private router: Router, private popupDateDialog: MatDialog,
@@ -31,15 +33,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (params) => {
         this.moduleId = params.moduleId;
         this.loadHubSensor(params.moduleId);
+        this.isAnimating = true;
+        clearInterval(this.interval);
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout( () => {
+          this.isAnimating = false;
+          console.log('Stop animation');
+          this.interval = setInterval(() => {
+            console.log('')
+            this.loadHubSensor(this.moduleId);
+          }, 1000);
+        }, 3000);
       }
     );
-    this.interval = setInterval(() => {
-      this.loadHubSensor(this.moduleId);
-    }, 1000);
+
+
   }
 
   ngOnDestroy(): void {
     clearInterval(this.interval);
+    clearTimeout(this.timeout);
   }
 
   loadHubSensor(moduleId: number) {
