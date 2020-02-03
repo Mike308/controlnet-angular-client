@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title>New User</mat-card-title>
+  <div fxLayout="column">
+    <form (ngSubmit)="onUserUpdate()" [formGroup]="userForm">
+      <div fxLayout="column">
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="name">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="password" matInput placeholder="password" type="password">
+        </mat-form-field>
+        <button [disabled]="!userForm.valid" color="primary" mat-raised-button type="submit">Create</button>
+      </div>
+    </form>
+  </div>
+</mat-card>
