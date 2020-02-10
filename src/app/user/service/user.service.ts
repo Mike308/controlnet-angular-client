@@ -10,7 +10,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
-  insertNewUser(user: { name: string, password: string }): Observable<any> {
+  insertNewUser(user: { name: string, password: string, id: number }): Observable<any> {
     return this.httpClient.post<any>(environment.url + '/user/insert', user, this.authService.httpOptions);
   }
 }
