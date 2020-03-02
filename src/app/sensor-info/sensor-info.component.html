@@ -1,3 +1,8 @@
-<p>
-  sensor-info works!
-</p>
+<mat-dialog-content>
+  <p>Sensor code: {{sensor.sensorCode}}</p>
+  <p>Sensor slot name: {{sensor.sensorSlotName}}</p>
+  <p>Sensor type: {{sensor.sensorType}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onClose()">OK</button>
+</mat-dialog-actions>

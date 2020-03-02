@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {SensorService} from './service/sensor.service';
+import {SensorModel} from './model/sensor.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-sensor-info',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SensorInfoComponent implements OnInit {
 
-  constructor() { }
+  sensor: SensorModel;
+
+  constructor(private sensorService: SensorService, public dialogRef: MatDialogRef<SensorInfoComponent>, @Inject(MAT_DIALOG_DATA) public sensorId: number) { }
 
   ngOnInit() {
+    this.sensorService.getSensorInfo(this.sensorId).subscribe(result => {
+      this.sensor = result;
+      console.log('Result: ' + JSON.stringify(result));
+    });
   }
 
+  onClose() {
+    this.dialogRef.close();
+  }
 }
