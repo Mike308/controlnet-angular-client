@@ -1,5 +1,8 @@
 <!--suppress ALL -->
 
+
+
+
 <div fxLayout="column" fxLayoutGap="20px">
   <div fxLayoutGap="row" fxLayoutGap="20px">
     <button mat-raised-button color="primary" (click)="onEditModule()">Edit module</button>
@@ -40,6 +43,7 @@
             <mat-chip color="primary" selected (dblclick)="onOpenSlotNameSetup(temperature.sensorId)">{{temperature.slotName}}</mat-chip>
             <mat-chip color="primary" selected>{{temperature.temperature}}</mat-chip>
           </mat-chip-list>
+          <button mat-raised-button color="primary" (click)="onSensorInfoOpenDialog(temperature.sensorId)" style="margin-top: 10px">Edit Sensor</button>
         </div>
       </div>
       <button (click)="onOpenChart('T')" color="primary" mat-raised-button style="margin-top: 10px">Data Chart</button>
